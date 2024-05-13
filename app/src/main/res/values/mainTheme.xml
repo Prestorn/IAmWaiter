@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MainTheme" parent="Theme.Material3.Dark">
+        <item name="colorPrimary">@color/themeColorPrimary</item>
+        <item name="colorAccent">@color/themeColorAccent</item>
+        <item name="colorPrimaryDark">@color/themeColorPrimaryDark</item>
+    </style>
+</resources>

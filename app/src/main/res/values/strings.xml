@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">IAmWaiter</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="enter_fragment_login">Логин</string>
+    <string name="enter_fragment_password">Пароль</string>
+    <string name="enter_fragment_button">Войти</string>
+
+
 </resources>
