@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.EnterFragment"
+    tools:context=".ui.enter.EnterFragment"
     android:background="@color/background">
 
 
@@ -18,7 +18,7 @@
             android:layout_height="200dp"
             android:layout_marginStart="80dp"
             android:layout_marginTop="48dp"
-            android:background="@drawable/circle_white"
+            android:background="@drawable/shape_circle_white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,8 @@
             android:hint="@string/enter_fragment_login"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/waiter" />
+            app:layout_constraintTop_toBottomOf="@+id/waiter"
+            android:backgroundTint="@color/themeColorPrimary"/>
 
         <EditText
             android:id="@+id/password"
@@ -52,7 +53,8 @@
             android:hint="@string/enter_fragment_password"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login" />
+            app:layout_constraintTop_toBottomOf="@+id/login"
+            android:backgroundTint="@color/themeColorPrimary"/>
 
         <Button
             android:id="@+id/button"

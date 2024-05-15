@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/enterFragment">
+
+    <fragment
+        android:id="@+id/enterFragment"
+        android:name="com.example.iamwaiter.ui.enter.EnterFragment"
+        tools:layout="@layout/fragment_enter">
+        <action
+            android:id="@+id/action_enterFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderListFragment"
+        android:name="com.example.iamwaiter.ui.orderList.OrderListFragment"
+        android:label="Список заказов"
+        tools:layout="@layout/fragment_order_list" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.iamwaiter.ui.menu.MenuFragment"
+        android:label="Меню"
+        tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.iamwaiter.ui.map.MapFragment"
+        android:label="Карта"
+        tools:layout="@layout/fragment_map" />
+</navigation>

@@ -8,5 +8,6 @@
     <color name="themeColorPrimary">#00C2FF</color>
     <color name="themeColorAccent">#EFC89D</color>
     <color name="themeColorPrimaryDark">#EFC89D</color>
+    <color name="navHeaderImageBackground">#FDCD60</color>
 
 </resources>

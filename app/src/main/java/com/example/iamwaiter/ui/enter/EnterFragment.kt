@@ -1,14 +1,13 @@
-package com.example.iamwaiter.fragments
+package com.example.iamwaiter.ui.enter
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputBinding
-import androidx.appcompat.app.AppCompatActivity
-import com.example.iamwaiter.R
+import androidx.navigation.fragment.findNavController
 import com.example.iamwaiter.databinding.FragmentEnterBinding
+import com.example.iamwaiter.R
 
 class EnterFragment : Fragment() {
 
@@ -24,10 +23,8 @@ class EnterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity?)!!.getSupportActionBar()!!.hide()
         binding.button.setOnClickListener(){
-            activity?.actionBar?.show()
-            parentFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, MainFragment()).commit()
+            findNavController().navigate(R.id.action_enterFragment_to_orderListFragment)
         }
     }
 }
