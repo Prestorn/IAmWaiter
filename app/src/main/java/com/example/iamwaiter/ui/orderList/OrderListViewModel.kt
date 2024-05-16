@@ -2,8 +2,6 @@ package com.example.iamwaiter.ui.orderList
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.iamwaiter.data.Order
 
 class OrderListViewModel : ViewModel(){
