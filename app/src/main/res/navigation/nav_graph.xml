@@ -17,7 +17,11 @@
         android:id="@+id/orderListFragment"
         android:name="com.example.iamwaiter.ui.orderList.OrderListFragment"
         android:label="Список заказов"
-        tools:layout="@layout/fragment_order_list" />
+        tools:layout="@layout/fragment_order_list" >
+        <action
+            android:id="@+id/action_orderListFragment_to_orderScreenFragment"
+            app:destination="@id/orderScreenFragment" />
+    </fragment>
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.example.iamwaiter.ui.menu.MenuFragment"
@@ -28,4 +32,13 @@
         android:name="com.example.iamwaiter.ui.map.MapFragment"
         android:label="Карта"
         tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/orderScreenFragment"
+        android:name="com.example.iamwaiter.ui.orderScreen.OrderScreenFragment"
+        android:label="Заказ"
+        tools:layout="@layout/fragment_order_screen">
+        <action
+            android:id="@+id/action_orderScreenFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
+    </fragment>
 </navigation>

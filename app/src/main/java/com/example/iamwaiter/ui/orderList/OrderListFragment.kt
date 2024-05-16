@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iamwaiter.databinding.FragmentOrderListBinding
+import com.example.iamwaiter.R
+import com.example.iamwaiter.ui.orderScreen.OrderScreenViewModel
 
 class OrderListFragment : Fragment() {
     lateinit var binding: FragmentOrderListBinding
@@ -29,26 +31,34 @@ class OrderListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val provider = ViewModelProvider((activity as ViewModelStoreOwner))
-        viewModel = provider.get(OrderListViewModel::class)
+        val provider = ViewModelProvider(activity as ViewModelStoreOwner)
+        viewModel = provider[OrderListViewModel::class]
         viewModel.updateOrderList()
 
         recyclerView = binding.orderList
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         observeViewModel()
+
     }
     fun observeViewModel(){
         val personCountList = ArrayList<Int>()
         val tableNumberList = ArrayList<Int>()
         val costList = ArrayList<Int>()
+        val idList = ArrayList<Int>()
 
         viewModel.orderList.observe(viewLifecycleOwner, Observer {
             it.forEach { order -> personCountList.add(order.id)
             tableNumberList.add(order.tableId)
-            costList.add(order.sum)}
+            costList.add(order.cost)
+            idList.add(order.id)}
 
-            recyclerView.adapter = OrderListRecyclerViewItem(personCountList, tableNumberList, costList)
+            recyclerView.adapter = OrderListRecyclerViewItem(personCountList, tableNumberList, costList, idList, this)
         })
+    }
+
+    fun onOrderSelected(id:Int){
+        ViewModelProvider(activity as ViewModelStoreOwner)[OrderScreenViewModel::class].orderId.value = id
+        findNavController().navigate(R.id.action_orderListFragment_to_orderScreenFragment)
     }
 }
