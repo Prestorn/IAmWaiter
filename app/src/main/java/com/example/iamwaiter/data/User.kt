@@ -3,11 +3,12 @@ package com.example.iamwaiter.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "order")
-data class Order (
+@Entity(tableName = "user")
+data class User (
     @PrimaryKey(autoGenerate = true)
     val id:Int,
-    val statusId:Int,
-    val userId:Int,
-    val tableId:Int,
-    val cost:Int){}
+    val name:String,
+    val surname:String,
+    val login:String,
+    val password:String
+) {}

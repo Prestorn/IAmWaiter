@@ -3,11 +3,10 @@ package com.example.iamwaiter.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "order")
-data class Order (
+@Entity(tableName = "dishInCategory")
+data class DishInCategory(
     @PrimaryKey(autoGenerate = true)
     val id:Int,
-    val statusId:Int,
-    val userId:Int,
-    val tableId:Int,
-    val cost:Int){}
+    val dishId:Int,
+    val categoryId:Int
+) {}
