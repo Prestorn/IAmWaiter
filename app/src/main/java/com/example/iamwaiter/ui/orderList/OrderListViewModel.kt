@@ -1,11 +1,13 @@
 package com.example.iamwaiter.ui.orderList
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.iamwaiter.data.Order
+import com.example.iamwaiter.model.entities.Order
 
-class OrderListViewModel : ViewModel(){
+class OrderListViewModel(application: Application) : AndroidViewModel(application){
     val orderList = MutableLiveData<ArrayList<Order>>()
+
     fun updateOrderList(){
         orderList.value =  arrayListOf(
             Order(10, 1, 1, 1, 460),

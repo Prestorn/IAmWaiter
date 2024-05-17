@@ -1,4 +1,4 @@
-package com.example.iamwaiter.data
+package com.example.iamwaiter.model.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

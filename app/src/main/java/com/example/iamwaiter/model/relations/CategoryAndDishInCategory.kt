@@ -1,9 +1,9 @@
-package com.example.iamwaiter.data.relations
+package com.example.iamwaiter.model.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.iamwaiter.data.Category
-import com.example.iamwaiter.data.DishInCategory
+import com.example.iamwaiter.model.entities.Category
+import com.example.iamwaiter.model.entities.DishInCategory
 
 data class CategoryAndDishInCategory (
     @Embedded val category: Category,

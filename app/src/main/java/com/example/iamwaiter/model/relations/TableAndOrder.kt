@@ -1,9 +1,9 @@
-package com.example.iamwaiter.data.relations
+package com.example.iamwaiter.model.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.iamwaiter.data.Order
-import com.example.iamwaiter.data.Table
+import com.example.iamwaiter.model.entities.Order
+import com.example.iamwaiter.model.entities.Table
 
 
 data class TableAndOrder (

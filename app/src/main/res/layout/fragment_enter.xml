@@ -52,6 +52,7 @@
             android:layout_marginTop="48dp"
             android:hint="@string/enter_fragment_password"
             android:textSize="26sp"
+            android:inputType="textPassword"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login"
             android:backgroundTint="@color/themeColorPrimary"/>
@@ -69,6 +70,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/password" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

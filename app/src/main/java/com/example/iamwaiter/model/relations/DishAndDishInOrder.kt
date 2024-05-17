@@ -1,9 +1,9 @@
-package com.example.iamwaiter.data.relations
+package com.example.iamwaiter.model.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.iamwaiter.data.Dish
-import com.example.iamwaiter.data.DishInOrder
+import com.example.iamwaiter.model.entities.Dish
+import com.example.iamwaiter.model.entities.DishInOrder
 
 data class DishAndDishInOrder (
     @Embedded val dish: Dish,
