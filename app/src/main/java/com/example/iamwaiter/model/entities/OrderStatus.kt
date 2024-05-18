@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "orderStatus")
 data class OrderStatus(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id:Int,
     val description:String
 ){}

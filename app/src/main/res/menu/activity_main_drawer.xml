@@ -19,4 +19,5 @@
             android:icon="@drawable/ic_map"
             android:title="@string/navigation_menu_title_map" />
     </group>
+
 </menu>

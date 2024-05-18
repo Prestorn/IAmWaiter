@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "table")
 data class Table(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id:Int,
     val statusId:Int,
     val peopleCount:Int
