@@ -2,20 +2,28 @@ package com.example.iamwaiter.ui.orderList
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.iamwaiter.model.DataBase
 import com.example.iamwaiter.model.entities.Order
+import com.example.iamwaiter.model.entities.User
+import com.example.iamwaiter.model.repositories.OrderRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OrderListViewModel(application: Application) : AndroidViewModel(application){
-    val orderList = MutableLiveData<ArrayList<Order>>()
+    val user = MutableLiveData<User>()
+    val selectedOrderId = MutableLiveData<Int>()
 
-    fun updateOrderList(){
-        orderList.value =  arrayListOf(
-            Order(10, 1, 1, 1, 460),
-            Order(20, 2, 1, 2, 1080),
-            Order(30, 4, 1, 5, 1220),
-            Order(40, 1, 1, 3, 890),
-            Order(50, 1, 1, 4, 2060)
-        )
+    private val orderDao = DataBase.getDatabase(application).orderDao()
+    private val orderRepository = OrderRepository(orderDao)
+
+    var orderList: LiveData<List<Order>> = orderRepository.getOrdersByUserId(1)
+
+    fun updateOrderList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            orderList = orderRepository.getOrdersByUserId(user.value!!.id)
+        }
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.iamwaiter.model.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -11,7 +12,10 @@ import com.example.iamwaiter.model.entities.DishInOrder
 @Dao
 interface DishInOrderDao {
     @Query("SELECT * FROM dishInOrder")
-    fun getAll():List<DishInOrder>
+    fun getAll(): LiveData<List<DishInOrder>>
+
+    @Query("SELECT * FROM `dishInOrder` WHERE orderId = :id")
+    fun getAllByOrderId(id: Int): List<DishInOrder>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(dishInOrder: DishInOrder)

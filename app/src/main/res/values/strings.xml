@@ -23,6 +23,9 @@
     <string name="menu_slideshow">Slideshow</string>
 
     <string name="list_item_base_int">1000</string>
+    <string name="base_small_int">1</string>
+    <string name="list_item_base_dish_name">Рисовая каша с арахисовой халвой на кокосовой основе</string>
+    <string name="list_item_base_dish_count">1x</string>
 
 
 </resources>

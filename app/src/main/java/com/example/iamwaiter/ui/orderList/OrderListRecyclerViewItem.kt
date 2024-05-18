@@ -1,6 +1,5 @@
 package com.example.iamwaiter.ui.orderList
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,7 @@ class OrderListRecyclerViewItem(
     private val cost:List<Int>,
     private val id:List<Int>,
     private val parentFragment: OrderListFragment
-) :
-    RecyclerView.Adapter<OrderListRecyclerViewItem.MyViewHolder>() {
+) : RecyclerView.Adapter<OrderListRecyclerViewItem.MyViewHolder>() {
 
         class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
             val personCountTextView:TextView = itemView.findViewById(R.id.textViewPersonCount)

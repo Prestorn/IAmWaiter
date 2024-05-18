@@ -5,8 +5,16 @@ import com.example.iamwaiter.model.dao.OrderDao
 import com.example.iamwaiter.model.entities.Order
 
 class OrderRepository(private val dao: OrderDao) {
-    fun getAllOrders(): List<Order> {
+    fun getAllOrders(): LiveData<List<Order>> {
         return dao.getAll()
+    }
+
+    fun getOrderById(id: Int): Order {
+        return dao.getOrderById(id)
+    }
+
+    fun getOrdersByUserId(id: Int): LiveData<List<Order>> {
+        return dao.getOrdersByUserId(id)
     }
 
     fun addOrder(order: Order){

@@ -5,9 +5,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "order")
 data class Order (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id:Int,
     val statusId:Int,
     val userId:Int,
     val tableId:Int,
-    val cost:Int){}
+    val cost:Int,
+    val peopleCount:Int
+) {}

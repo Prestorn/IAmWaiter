@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.iamwaiter.databinding.FragmentEnterBinding
 import com.example.iamwaiter.R
+import com.example.iamwaiter.ui.orderList.OrderListViewModel
 
 class EnterFragment : Fragment() {
 
@@ -38,6 +39,7 @@ class EnterFragment : Fragment() {
 
         binding.button.setOnClickListener(){
             if (viewModel.checkUserLogin(binding.login.text.toString(), binding.password.text.toString())) {
+                ViewModelProvider(activity as ViewModelStoreOwner)[OrderListViewModel::class].user.value = viewModel.user
                 findNavController().navigate(R.id.action_enterFragment_to_orderListFragment)
             }
             else{

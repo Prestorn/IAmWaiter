@@ -39,26 +39,36 @@ class OrderListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         observeViewModel()
-
     }
-    fun observeViewModel(){
-        val personCountList = ArrayList<Int>()
+    private fun observeViewModel(){
+        val peopleCountList = ArrayList<Int>()
         val tableNumberList = ArrayList<Int>()
         val costList = ArrayList<Int>()
         val idList = ArrayList<Int>()
 
         viewModel.orderList.observe(viewLifecycleOwner, Observer {
-            it.forEach { order -> personCountList.add(order.id)
-            tableNumberList.add(order.tableId)
-            costList.add(order.cost)
-            idList.add(order.id)}
-
-            recyclerView.adapter = OrderListRecyclerViewItem(personCountList, tableNumberList, costList, idList, this)
+            peopleCountList.clear()
+            tableNumberList.clear()
+            costList.clear()
+            idList.clear()
+            it.forEach { order ->
+                peopleCountList.add(order.peopleCount)
+                tableNumberList.add(order.tableId)
+                costList.add(order.cost)
+                idList.add(order.id)
+            }
+            recyclerView.adapter = OrderListRecyclerViewItem(peopleCountList, tableNumberList, costList, idList, this)
         })
     }
 
     fun onOrderSelected(id:Int){
+        viewModel.selectedOrderId.value = id
         ViewModelProvider(activity as ViewModelStoreOwner)[OrderScreenViewModel::class].orderId.value = id
         findNavController().navigate(R.id.action_orderListFragment_to_orderScreenFragment)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.updateOrderList()
     }
 }

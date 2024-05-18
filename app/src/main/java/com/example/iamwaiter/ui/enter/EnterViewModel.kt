@@ -2,7 +2,6 @@ package com.example.iamwaiter.ui.enter
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.iamwaiter.model.Data
 import com.example.iamwaiter.model.DataBase
@@ -22,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class EnterViewModel(application: Application) : AndroidViewModel(application) {
 
-    val user = MutableLiveData<User>()
+    lateinit var user: User
 
     private val userDao = DataBase.getDatabase(application).userDao()
     private val userRepository = UserRepository(userDao)
@@ -65,7 +64,7 @@ class EnterViewModel(application: Application) : AndroidViewModel(application) {
         updateUsersList()
         usersList.forEach { user ->
             if (user?.login == login && user.password == password) {
-                this.user.value = user
+                this.user = user
                 return true
             }
         }

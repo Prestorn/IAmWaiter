@@ -1,12 +1,17 @@
 package com.example.iamwaiter.model.repositories
 
+import androidx.lifecycle.LiveData
 import com.example.iamwaiter.model.dao.DishDao
 import com.example.iamwaiter.model.entities.Dish
 
 class DishRepository(private val dao: DishDao) {
 
-    fun getAllDishes(): List<Dish> {
+    fun getAllDishes(): LiveData<List<Dish>> {
         return dao.getAll()
+    }
+
+    fun getDishById(id: Int): Dish {
+        return dao.getDishById(id)
     }
 
     fun addDish(dish: Dish) {

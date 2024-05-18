@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:background="@drawable/shape_rectangle_rounded_blue">
+
+    <View
+        android:id="@+id/dishInOrderListItemBackground"
+        android:layout_width="309dp"
+        android:layout_height="197dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape_rectange_rounded_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dishInOrderListItemCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/list_item_base_dish_count"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dishInOrderListItemNameTextView"
+            android:layout_width="235dp"
+            android:layout_height="110dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/list_item_base_dish_name"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/dishInOrderListItemCountTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dishInOrderListItemCostTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/list_item_base_int"
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        app:layout_constraintStart_toEndOf="@+id/cashImageView"
+        app:layout_constraintTop_toTopOf="@+id/cashImageView" />
+
+    <ImageView
+        android:id="@+id/cashImageView"
+        android:layout_width="96dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dishInOrderListItemNameTextView"
+        app:srcCompat="@drawable/ic_cash" />
+
+        <ImageView
+            android:id="@+id/dishStatusImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/dishInOrderListItemCostTextView"
+            app:layout_constraintTop_toBottomOf="@+id/dishInOrderListItemNameTextView"
+            app:srcCompat="@drawable/ic_dish_status_1" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
