@@ -6,22 +6,22 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.iamwaiter.model.entities.User
+import com.example.iamwaiter.model.entities.DishStatus
 
 @Dao
-interface UserDao {
-    @Query("SELECT * FROM user")
-    fun getAll():List<User>
+interface DishStatusDao {
+    @Query("SELECT * FROM dishStatus")
+    fun getAll():List<DishStatus>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(user: User)
+    fun insert(dishStatus: DishStatus)
 
     @Delete
-    fun delete(user: User)
+    fun delete(dishStatus: DishStatus)
 
-    @Query("DELETE FROM user")
+    @Query("DELETE FROM dishStatus")
     fun deleteAll()
 
     @Update
-    fun update(user: User)
+    fun update(dishStatus: DishStatus)
 }

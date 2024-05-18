@@ -4,15 +4,50 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.iamwaiter.model.dao.CategoryDao
+import com.example.iamwaiter.model.dao.DishDao
+import com.example.iamwaiter.model.dao.DishInCategoryDao
+import com.example.iamwaiter.model.dao.DishInOrderDao
+import com.example.iamwaiter.model.dao.DishStatusDao
 import com.example.iamwaiter.model.dao.OrderDao
+import com.example.iamwaiter.model.dao.OrderStatusDao
+import com.example.iamwaiter.model.dao.TableDao
+import com.example.iamwaiter.model.dao.TableStatusDao
 import com.example.iamwaiter.model.dao.UserDao
+import com.example.iamwaiter.model.entities.Category
+import com.example.iamwaiter.model.entities.Dish
+import com.example.iamwaiter.model.entities.DishInCategory
+import com.example.iamwaiter.model.entities.DishInOrder
+import com.example.iamwaiter.model.entities.DishStatus
 import com.example.iamwaiter.model.entities.Order
+import com.example.iamwaiter.model.entities.OrderStatus
+import com.example.iamwaiter.model.entities.Table
+import com.example.iamwaiter.model.entities.TableStatus
 import com.example.iamwaiter.model.entities.User
 
-@Database(entities = [User::class, Order::class], version = 3, exportSchema = false)
+@Database(entities = [Category::class,
+                     Dish::class,
+                     DishInCategory::class,
+                     DishInOrder::class,
+                     DishStatus::class,
+                     Order::class,
+                     OrderStatus::class,
+                     Table::class,
+                     TableStatus::class,
+                     User::class],
+                        version = 4, exportSchema = false)
 abstract class DataBase : RoomDatabase() {
-    abstract fun userDao(): UserDao
+
+    abstract fun categoryDao(): CategoryDao
+    abstract fun dishDao(): DishDao
+    abstract fun dishInCategory(): DishInCategoryDao
+    abstract fun dishInOrderDao(): DishInOrderDao
+    abstract fun dishStatusDao(): DishStatusDao
     abstract fun orderDao(): OrderDao
+    abstract fun orderStatusDao(): OrderStatusDao
+    abstract fun tableDao(): TableDao
+    abstract fun tableStatusDao(): TableStatusDao
+    abstract fun userDao(): UserDao
 
     companion object{
         @Volatile

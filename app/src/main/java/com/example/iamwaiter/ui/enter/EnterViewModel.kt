@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.iamwaiter.model.BaseData
+import com.example.iamwaiter.model.Data
 import com.example.iamwaiter.model.DataBase
 import com.example.iamwaiter.model.entities.User
 import com.example.iamwaiter.model.repositories.UserRepository
@@ -50,9 +50,11 @@ class EnterViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun fillDataBase() {
-        BaseData.users.forEach{userRepository.addUser(it) }
+        Data.users.forEach{userRepository.addUser(it) }
     }
 
+    private fun clearDataBase(){
 
+    }
 
 }
