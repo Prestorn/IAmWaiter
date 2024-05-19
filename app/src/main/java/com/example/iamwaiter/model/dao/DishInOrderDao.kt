@@ -17,6 +17,7 @@ interface DishInOrderDao {
     @Query("SELECT * FROM `dishInOrder` WHERE orderId = :id")
     fun getAllByOrderId(id: Int): List<DishInOrder>
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(dishInOrder: DishInOrder)
 

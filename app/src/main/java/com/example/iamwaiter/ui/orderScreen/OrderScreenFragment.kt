@@ -1,6 +1,7 @@
 package com.example.iamwaiter.ui.orderScreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,6 +53,10 @@ class OrderScreenFragment : Fragment() {
             binding.tableNumberEditText.setText(viewModel.tableNumber.toString())
             binding.costTextView.text = viewModel.orderCost.toString()
             recyclerView.adapter = DishInOrderRecyclerViewItem(countList, namesList, costList, statusesList, idList, this)
+        })
+
+        viewModel.allDishesInOrders.observe(viewLifecycleOwner, Observer {
+            Log.i("!allDishesInOrders", "${viewModel.allDishesInOrders.value}")
         })
     }
 

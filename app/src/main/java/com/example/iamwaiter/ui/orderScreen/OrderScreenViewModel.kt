@@ -1,7 +1,9 @@
 package com.example.iamwaiter.ui.orderScreen
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.iamwaiter.model.DataBase
@@ -41,10 +43,13 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
     var peopleCount: Int = 0
     var tableNumber: Int = 0
 
+    var allDishesInOrders: LiveData<List<DishInOrder>> = dishInOrderRepository.getAllDishesInOrders()
+
     fun updateDishInOrderList() {
         listIsFinished.value = false
         viewModelScope.launch(Dispatchers.IO) {
             dishInOrderList = dishInOrderRepository.getAllDishesInOrder(orderId.value!!)
+            allDishesInOrders = dishInOrderRepository.getAllDishesInOrders()
             order = orderRepository.getOrderById(orderId.value!!)
             peopleCount = order!!.peopleCount
             tableNumber = order!!.tableId
