@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.iamwaiter.R
 import com.example.iamwaiter.databinding.FragmentOrderScreenBinding
+import com.example.iamwaiter.ui.dish.DishViewModel
 
 class OrderScreenFragment : Fragment() {
 
@@ -33,39 +36,56 @@ class OrderScreenFragment : Fragment() {
 
         val provider = ViewModelProvider(activity as ViewModelStoreOwner)
         viewModel = provider[OrderScreenViewModel::class]
-        viewModel.updateDishInOrderList()
 
         recyclerView = binding.dishesList
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         observeViewModel()
-    }
-
-    private fun observeViewModel() {
-        viewModel.listIsFinished.observe(viewLifecycleOwner, Observer {
-            viewModel.fillLists()
-            val countList: ArrayList<Int> = viewModel.countList
-            val namesList: ArrayList<String> = viewModel.namesList
-            val costList: ArrayList<Int> = viewModel.costList
-            val statusesList: ArrayList<Int> = viewModel.statusesList
-            val idList: ArrayList<Int> = viewModel.idList
-            binding.peopleCountEditText.setText(viewModel.peopleCount.toString())
-            binding.tableNumberEditText.setText(viewModel.tableNumber.toString())
-            binding.costTextView.text = viewModel.orderCost.toString()
-            recyclerView.adapter = DishInOrderRecyclerViewItem(countList, namesList, costList, statusesList, idList, this)
-        })
-
-        viewModel.allDishesInOrders.observe(viewLifecycleOwner, Observer {
-            Log.i("!allDishesInOrders", "${viewModel.allDishesInOrders.value}")
-        })
-    }
-
-    fun onDishSelected(id: Int){
-        Toast.makeText(context, "$id", Toast.LENGTH_SHORT).show()
+        binding.plusBackground.setOnClickListener{ addDishInOrder() }
+        binding.backBackground.setOnClickListener{ returnToOrderList() }
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.updateDishInOrderList()
+        //viewModel.updateDishInOrderList()
+    }
+
+    private fun observeViewModel() {
+
+        viewModel.orderId.observe(viewLifecycleOwner) {
+            viewModel.updateOrder(it)
+        }
+
+        viewModel.dishListLiveData.observe(viewLifecycleOwner) {
+            viewModel.updateLists()
+            fillRecyclerView()
+        }
+
+    }
+
+    fun fillRecyclerView() {
+        val countList: ArrayList<Int> = viewModel.countList
+        val namesList: ArrayList<String> = viewModel.namesList
+        val costList: ArrayList<Int> = viewModel.costList
+        val statusesList: ArrayList<Int> = viewModel.statusesList
+        val idList: ArrayList<Int> = viewModel.idList
+        binding.peopleCountEditText.setText(viewModel.peopleCount.toString())
+        binding.tableNumberEditText.setText(viewModel.tableNumber.toString())
+        binding.costTextView.text = viewModel.orderCost.toString()
+        recyclerView.adapter = DishInOrderRecyclerViewItem(countList, namesList, costList, statusesList, idList, this)
+
+    }
+
+    fun onDishSelected(id: Int) {
+        ViewModelProvider(activity as ViewModelStoreOwner)[DishViewModel::class].dishIdValue = id
+        findNavController().navigate(R.id.action_orderScreenFragment_to_dishFragment)
+    }
+
+    fun addDishInOrder() {
+
+    }
+
+    fun returnToOrderList() {
+        findNavController().navigate(R.id.action_orderScreenFragment_to_orderListFragment)
     }
 }

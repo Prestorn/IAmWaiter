@@ -174,31 +174,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <View
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/dishesListBackground"
             android:layout_width="match_parent"
-            android:layout_height="370dp"
+            android:layout_height="wrap_content"
+            android:maxHeight="350dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:background="@drawable/shape_rectangle_rounded_blue"
             app:layout_constraintBottom_toTopOf="@+id/plusBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tableNumberBackground" />
+            app:layout_constraintTop_toBottomOf="@id/tableNumberBackground">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dishesList"
-            android:layout_width="320dp"
-            android:layout_height="360dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            app:layout_constraintEnd_toEndOf="@+id/dishesListBackground"
-            app:layout_constraintStart_toStartOf="@+id/dishesListBackground"
-            app:layout_constraintTop_toTopOf="@+id/dishesListBackground"
-            tools:listitem="@layout/dish_in_order_list_item"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/dishesList"
+                android:layout_width="wrap_content"
+                android:layout_height="330dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/dish_in_order_list_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

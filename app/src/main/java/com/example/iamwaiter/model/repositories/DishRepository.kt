@@ -1,5 +1,6 @@
 package com.example.iamwaiter.model.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.iamwaiter.model.dao.DishDao
 import com.example.iamwaiter.model.entities.Dish
@@ -10,8 +11,20 @@ class DishRepository(private val dao: DishDao) {
         return dao.getAll()
     }
 
-    fun getDishById(id: Int): Dish {
+    fun getDishById(id: Int): LiveData<Dish> {
         return dao.getDishById(id)
+    }
+
+    fun getDishValueById(id: Int): Dish {
+        return dao.getDishValueById(id)
+    }
+
+    fun getDishListValueByIdList(id: Int): List<Dish> {
+        return dao.getDishListValueByOrderId(id)
+    }
+
+    fun getDishListByOrderId(id: Int): LiveData<List<Dish>> {
+        return dao.getDishListByOrderId(id)
     }
 
     fun addDish(dish: Dish) {

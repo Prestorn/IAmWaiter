@@ -1,6 +1,5 @@
 package com.example.iamwaiter.ui.orderScreen
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,8 +31,6 @@ class DishInOrderRecyclerViewItem(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        Log.i("LISTS", "$countList, \n" +
-                "$namesList, \n $costList, \n $statusesList, \n $idList \n ${holder.countListTextView}")
         holder.countListTextView.text = countList[position].toString()
         holder.nameTextView.text = namesList[position]
         holder.costTextView.text = costList[position].toString()

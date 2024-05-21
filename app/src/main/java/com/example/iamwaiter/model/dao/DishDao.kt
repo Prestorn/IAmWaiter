@@ -15,7 +15,18 @@ interface DishDao {
     fun getAll(): LiveData<List<Dish>>
 
     @Query("SELECT * FROM dish WHERE id = :id")
-    fun getDishById(id: Int): Dish
+    fun getDishById(id: Int): LiveData<Dish>
+
+    @Query("SELECT * FROM dish WHERE id = :id")
+    fun getDishValueById(id: Int): Dish
+
+    @Query("SELECT * FROM dish WHERE id IN (" +
+            "SELECT dishId FROM dishInOrder WHERE orderId = :id)")
+    fun getDishListByOrderId(id: Int): LiveData<List<Dish>>
+
+    @Query("SELECT * FROM dish WHERE id IN (" +
+            "SELECT dishId FROM dishInOrder WHERE orderId = :id)")
+    fun getDishListValueByOrderId(id: Int): List<Dish>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(dish: Dish)

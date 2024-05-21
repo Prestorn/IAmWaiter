@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 
 class OrderScreenViewModel(application: Application) : AndroidViewModel(application) {
     val orderId = MutableLiveData<Int>()
+    private var order: Order? = null
 
     private val dishInOrderDao = DataBase.getDatabase(application).dishInOrderDao()
     private val dishInOrderRepository = DishInOrderRepository(dishInOrderDao)
@@ -29,62 +30,51 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
     private val orderRepository = OrderRepository(orderDao)
 
     var dishInOrderList: List<DishInOrder> = listOf()
-    var dishList: MutableList<Dish> = mutableListOf()
-    val listIsFinished: MutableLiveData<Boolean> = MutableLiveData(false)
-    var order: Order? = null
+    var dishListLiveData: LiveData<List<Dish>> = dishRepository.getDishListByOrderId(1)
+    var dishList: List<Dish> = listOf()
 
     val countList: ArrayList<Int> = arrayListOf()
     val namesList: ArrayList<String> = arrayListOf()
     val costList: ArrayList<Int> = arrayListOf()
     val statusesList: ArrayList<Int> = arrayListOf()
     val idList: ArrayList<Int> = arrayListOf()
-    var c = 1
     var orderCost: Int = 0
     var peopleCount: Int = 0
     var tableNumber: Int = 0
 
-    var allDishesInOrders: LiveData<List<DishInOrder>> = dishInOrderRepository.getAllDishesInOrders()
-
-    fun updateDishInOrderList() {
-        listIsFinished.value = false
+    fun updateOrder(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            dishInOrderList = dishInOrderRepository.getAllDishesInOrder(orderId.value!!)
-            allDishesInOrders = dishInOrderRepository.getAllDishesInOrders()
-            order = orderRepository.getOrderById(orderId.value!!)
+            order = orderRepository.getOrderById(id)
             peopleCount = order!!.peopleCount
             tableNumber = order!!.tableId
-            fillDishList()
-        }
-        checkDishListSize()
-    }
-
-    private fun fillDishList(){
-        dishList.clear()
-        dishInOrderList.forEach{
-            dishList.add(dishRepository.getDishById(it.dishId))
+            updateDishInOrderList()
         }
     }
 
-    private fun checkDishListSize(){
-        c = 0
-        if (dishList.size != dishInOrderList.size || dishList.isEmpty()){
-            c++
-            checkDishListSize()
-        }
-        else{
-            listIsFinished.value = true
+    fun updateDishInOrderList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            dishInOrderList = dishInOrderRepository.getAllDishesValueInOrder(order!!.id)
+            updateDishList()
         }
     }
 
-    fun fillLists(){
+    fun updateDishList() {
+        viewModelScope.launch(Dispatchers.IO) {
+            dishList = dishRepository.getDishListValueByIdList(order!!.id)
+            dishListLiveData = dishRepository.getDishListByOrderId(order!!.id)
+        }
+    }
+
+
+    fun updateLists() {
         clearLists()
-        for (i in (0 .. dishList.size - 1) ){
+        for (i in (0 .. dishList.size - 1) ) {
             countList.add(dishInOrderList[i].count)
             statusesList.add(dishInOrderList[i].statusId)
+            idList.add(dishInOrderList[i].dishId)
             namesList.add(dishList[i].name)
-            costList.add(dishList[i].cost * dishInOrderList[i].count)
-            idList.add(dishList[i].id)
-            orderCost += dishList[i].cost * dishInOrderList[i].count
+            costList.add(dishList[i].cost * countList[i])
+            orderCost += dishList[i].cost * countList[i]
         }
     }
 
