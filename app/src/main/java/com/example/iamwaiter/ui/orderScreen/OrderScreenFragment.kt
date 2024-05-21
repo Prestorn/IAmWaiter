@@ -77,7 +77,7 @@ class OrderScreenFragment : Fragment() {
     }
 
     fun onDishSelected(id: Int) {
-        ViewModelProvider(activity as ViewModelStoreOwner)[DishViewModel::class].dishIdValue = id
+        ViewModelProvider(activity as ViewModelStoreOwner)[DishViewModel::class].dishId.value = id
         findNavController().navigate(R.id.action_orderScreenFragment_to_dishFragment)
     }
 

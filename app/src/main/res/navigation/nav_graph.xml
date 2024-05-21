@@ -40,5 +40,17 @@
         <action
             android:id="@+id/action_orderScreenFragment_to_orderListFragment"
             app:destination="@id/orderListFragment" />
+        <action
+            android:id="@+id/action_orderScreenFragment_to_dishFragment"
+            app:destination="@id/dishFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dishFragment"
+        android:name="com.example.iamwaiter.ui.dish.DishFragment"
+        android:label="Блюдо"
+        tools:layout="@layout/fragment_dish">
+        <action
+            android:id="@+id/action_dishFragment_to_orderScreenFragment"
+            app:destination="@id/orderScreenFragment" />
     </fragment>
 </navigation>
