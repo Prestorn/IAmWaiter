@@ -14,11 +14,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.iamwaiter.R
 import com.example.iamwaiter.databinding.FragmentDishBinding
 import com.example.iamwaiter.ui.dishMenu.DishMenuViewModel
+import com.example.iamwaiter.ui.orderScreen.OrderScreenViewModel
 
 class DishFragment : Fragment() {
 
     lateinit var binding: FragmentDishBinding
     lateinit var viewModel: DishViewModel
+    var addDishEnable: Boolean? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +38,8 @@ class DishFragment : Fragment() {
 
         binding.backBackground.setOnClickListener{ goBack() }
         binding.descriptionTextView.movementMethod = ScrollingMovementMethod()
+
+        addDishEnable = provider[OrderScreenViewModel::class].addDishEnable.value
 
         observeViewModel()
     }
@@ -73,12 +77,12 @@ class DishFragment : Fragment() {
     }
 
     private fun setAddVidibility() {
-        if (viewModel.navigateFromMenu) {
-            binding.plus.visibility = View.INVISIBLE
-            binding.plusBackground.visibility = View.INVISIBLE
-        } else {
+        if (addDishEnable == true) {
             binding.plus.visibility = View.VISIBLE
             binding.plusBackground.visibility = View.VISIBLE
+        } else {
+            binding.plus.visibility = View.INVISIBLE
+            binding.plusBackground.visibility = View.INVISIBLE
         }
     }
 

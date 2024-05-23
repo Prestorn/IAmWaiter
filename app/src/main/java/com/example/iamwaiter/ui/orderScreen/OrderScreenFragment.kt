@@ -38,15 +38,17 @@ class OrderScreenFragment : Fragment() {
         val provider = ViewModelProvider(activity as ViewModelStoreOwner)
         viewModel = provider[OrderScreenViewModel::class]
 
+        viewModel.addDishEnable.value = true
+
         recyclerView = binding.dishesList
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        observeViewModel()
         binding.plusBackground.setOnClickListener{ addDishInOrder() }
-        binding.backBackground.setOnClickListener{ returnToOrderList() }
+        binding.backBackground.setOnClickListener{ goBack() }
 
-        Log.i("Order fragment", "onViewCreated")
+        observeViewModel()
     }
+
 
     private fun observeViewModel() {
 
@@ -61,7 +63,7 @@ class OrderScreenFragment : Fragment() {
 
     }
 
-    fun fillRecyclerView() {
+    private fun fillRecyclerView() {
         val countList: ArrayList<Int> = viewModel.countList
         val namesList: ArrayList<String> = viewModel.namesList
         val costList: ArrayList<Int> = viewModel.costList
@@ -81,11 +83,12 @@ class OrderScreenFragment : Fragment() {
         findNavController().navigate(R.id.action_orderScreenFragment_to_dishFragment)
     }
 
-    fun addDishInOrder() {
+    private fun addDishInOrder() {
         findNavController().navigate(R.id.action_orderScreenFragment_to_menuFromOrderFragment)
     }
 
-    fun returnToOrderList() {
+    private fun goBack() {
+        viewModel.addDishEnable.value = false
         findNavController().navigate(R.id.action_orderScreenFragment_to_orderListFragment)
     }
 }

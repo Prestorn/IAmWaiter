@@ -20,6 +20,8 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
     val orderId = MutableLiveData<Int>()
     private var order: Order? = null
 
+    val addDishEnable = MutableLiveData<Boolean>()
+
     private val dishInOrderDao = DataBase.getDatabase(application).dishInOrderDao()
     private val dishInOrderRepository = DishInOrderRepository(dishInOrderDao)
 
