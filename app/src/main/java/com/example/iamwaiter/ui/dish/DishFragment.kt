@@ -47,11 +47,8 @@ class DishFragment : Fragment() {
 
         viewModel.dishLiveData.observe(viewLifecycleOwner) {
             val dish = viewModel.dish
-            Log.i("dish", "$it \n ${dish} \n ${R.mipmap.dish1} \n" +
-                    " ${R.mipmap.dish2} \n" +
-                    " ${R.mipmap.dish3}" )
+            Log.i("dish", "$it \n ${dish} \n ${R.mipmap.dish1}")
             val imageId = requireActivity().resources.getIdentifier("dish${dish.id}", "mipmap", requireActivity().packageName)
-            Log.i("imageId", "$imageId")
             binding.dishImage.setImageResource(imageId)
             binding.dishNameTextView.text = dish.name
             binding.descriptionTextView.text = dish.description

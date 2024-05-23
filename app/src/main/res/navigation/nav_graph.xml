@@ -26,7 +26,11 @@
         android:id="@+id/menuFragment"
         android:name="com.example.iamwaiter.ui.menu.MenuFragment"
         android:label="Меню"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_dishMenuFragment"
+            app:destination="@id/dishMenuFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.iamwaiter.ui.map.MapFragment"
@@ -43,6 +47,9 @@
         <action
             android:id="@+id/action_orderScreenFragment_to_dishFragment"
             app:destination="@id/dishFragment" />
+        <action
+            android:id="@+id/action_orderScreenFragment_to_menuFromOrderFragment"
+            app:destination="@id/menuFromOrderFragment" />
     </fragment>
     <fragment
         android:id="@+id/dishFragment"
@@ -52,5 +59,34 @@
         <action
             android:id="@+id/action_dishFragment_to_orderScreenFragment"
             app:destination="@id/orderScreenFragment" />
+        <action
+            android:id="@+id/action_dishFragment_to_dishMenuFragment"
+            app:destination="@id/dishMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFromOrderFragment"
+        android:name="com.example.iamwaiter.ui.menu.MenuFromOrderFragment"
+        android:label="Меню">
+        <action
+            android:id="@+id/action_menuFromOrderFragment_to_orderScreenFragment"
+            app:destination="@id/orderScreenFragment" />
+        <action
+            android:id="@+id/action_menuFromOrderFragment_to_dishMenuFragment"
+            app:destination="@id/dishMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dishMenuFragment"
+        android:name="com.example.iamwaiter.ui.dishMenu.DishMenuFragment"
+        android:label="Меню"
+        tools:layout="@layout/fragment_dish_menu">
+        <action
+            android:id="@+id/action_dishMenuFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_dishMenuFragment_to_menuFromOrderFragment"
+            app:destination="@id/menuFromOrderFragment" />
+        <action
+            android:id="@+id/action_dishMenuFragment_to_dishFragment"
+            app:destination="@id/dishFragment" />
     </fragment>
 </navigation>

@@ -43,11 +43,8 @@ class OrderScreenFragment : Fragment() {
         observeViewModel()
         binding.plusBackground.setOnClickListener{ addDishInOrder() }
         binding.backBackground.setOnClickListener{ returnToOrderList() }
-    }
 
-    override fun onResume() {
-        super.onResume()
-        //viewModel.updateDishInOrderList()
+        Log.i("Order fragment", "onViewCreated")
     }
 
     private fun observeViewModel() {
@@ -82,7 +79,8 @@ class OrderScreenFragment : Fragment() {
     }
 
     fun addDishInOrder() {
-
+        viewModel.addDishInOrderEnable.value = true
+        findNavController().navigate(R.id.action_orderScreenFragment_to_menuFromOrderFragment)
     }
 
     fun returnToOrderList() {

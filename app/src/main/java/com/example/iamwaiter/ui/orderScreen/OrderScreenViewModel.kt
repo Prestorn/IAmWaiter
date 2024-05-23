@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 
 class OrderScreenViewModel(application: Application) : AndroidViewModel(application) {
     val orderId = MutableLiveData<Int>()
+    val addDishInOrderEnable = MutableLiveData<Boolean>()
     private var order: Order? = null
 
     private val dishInOrderDao = DataBase.getDatabase(application).dishInOrderDao()

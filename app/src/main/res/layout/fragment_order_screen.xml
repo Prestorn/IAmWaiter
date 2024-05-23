@@ -126,7 +126,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="1dp"
             android:textAlignment="center"
-            android:text="@string/list_item_base_int"
+            android:text="@string/base_int"
             android:textColor="@color/black"
             android:textSize="26sp"
             app:layout_constraintEnd_toEndOf="@+id/costBackground"

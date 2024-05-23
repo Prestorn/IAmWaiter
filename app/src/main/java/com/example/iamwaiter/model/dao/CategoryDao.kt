@@ -1,5 +1,6 @@
 package com.example.iamwaiter.model.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -11,7 +12,7 @@ import com.example.iamwaiter.model.entities.Category
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM category")
-    fun getAll():List<Category>
+    fun getAll(): LiveData<List<Category>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(category: Category)

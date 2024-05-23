@@ -1,11 +1,12 @@
 package com.example.iamwaiter.model.repositories
 
+import androidx.lifecycle.LiveData
 import com.example.iamwaiter.model.dao.CategoryDao
 import com.example.iamwaiter.model.entities.Category
 
 class CategoryRepository(private val dao: CategoryDao) {
 
-    fun getAllCategories(): List<Category> {
+    fun getAllCategories(): LiveData<List<Category>> {
         return dao.getAll()
     }
 

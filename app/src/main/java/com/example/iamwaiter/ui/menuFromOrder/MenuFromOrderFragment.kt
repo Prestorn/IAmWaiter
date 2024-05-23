@@ -13,21 +13,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iamwaiter.R
-import com.example.iamwaiter.databinding.FragmentEnterBinding
-import com.example.iamwaiter.databinding.FragmentMenuBinding
+import com.example.iamwaiter.databinding.FragmentMenuFromOrderBinding
 import com.example.iamwaiter.ui.orderScreen.OrderScreenViewModel
 
-class MenuFragment : Fragment() {
+class MenuFromOrderFragment : Fragment() {
 
-    lateinit var binding: FragmentMenuBinding
-    lateinit var viewModel: MenuViewModel
+    lateinit var binding: FragmentMenuFromOrderBinding
+    lateinit var viewModel: MenuFromOrderViewModel
     lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMenuBinding.inflate(inflater)
+        binding = FragmentMenuFromOrderBinding.inflate(inflater)
         return binding.root
     }
 
@@ -35,10 +34,12 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val presenter = ViewModelProvider(activity as ViewModelStoreOwner)
-        viewModel = presenter[MenuViewModel::class]
+        viewModel = presenter[MenuFromOrderViewModel::class]
 
         recyclerView = binding.categoryList
         recyclerView.layoutManager = LinearLayoutManager(context)
+
+        binding.backBackground.setOnClickListener { goBack() }
 
         observeViewModel()
     }
@@ -46,11 +47,17 @@ class MenuFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.categoryList.observe(viewLifecycleOwner) {
             viewModel.fillLists(it)
-            recyclerView.adapter = CategoryListItem(viewModel.namesList, viewModel.idList, this)
+            recyclerView.adapter = CategoryListItemFromOrder(viewModel.namesList, viewModel.idList, this)
         }
     }
 
     fun onCategorySelected(id: Int) {
         Toast.makeText(context, "$id", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun goBack() {
+        if (ViewModelProvider(activity as ViewModelStoreOwner)[OrderScreenViewModel::class].addDishInOrderEnable.value!!) {
+            findNavController().navigate(R.id.action_menuFromOrderFragment_to_orderScreenFragment)
+        }
     }
 }
