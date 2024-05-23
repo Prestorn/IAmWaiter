@@ -20,6 +20,12 @@ interface DishDao {
     @Query("SELECT * FROM dish WHERE id = :id")
     fun getDishValueById(id: Int): Dish
 
+    @Query("SELECT * FROM dish WHERE id IN (SELECT dishId FROM dishInCategory WHERE categoryId = :id)")
+    fun getDishListByCategoryID(id: Int): List<Dish>
+
+    @Query("SELECT * FROM dish WHERE id IN (SELECT dishId FROM dishInCategory WHERE categoryId = :id)")
+    fun getDishListLiveDataByCategoryID(id: Int): LiveData<List<Dish>>
+
     @Query("SELECT * FROM dish WHERE id IN (" +
             "SELECT dishId FROM dishInOrder WHERE orderId = :id)")
     fun getDishListByOrderId(id: Int): LiveData<List<Dish>>

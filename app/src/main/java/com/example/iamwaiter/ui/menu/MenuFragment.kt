@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.iamwaiter.R
 import com.example.iamwaiter.databinding.FragmentEnterBinding
 import com.example.iamwaiter.databinding.FragmentMenuBinding
+import com.example.iamwaiter.ui.dishMenu.DishMenuViewModel
 import com.example.iamwaiter.ui.orderScreen.OrderScreenViewModel
 
 class MenuFragment : Fragment() {
@@ -34,8 +35,8 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val presenter = ViewModelProvider(activity as ViewModelStoreOwner)
-        viewModel = presenter[MenuViewModel::class]
+        val provider = ViewModelProvider(activity as ViewModelStoreOwner)
+        viewModel = provider[MenuViewModel::class]
 
         recyclerView = binding.categoryList
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -51,6 +52,9 @@ class MenuFragment : Fragment() {
     }
 
     fun onCategorySelected(id: Int) {
-        Toast.makeText(context, "$id", Toast.LENGTH_SHORT).show()
+        val dishMenuViewModel = ViewModelProvider(activity as ViewModelStoreOwner)[DishMenuViewModel::class]
+        dishMenuViewModel.categoryId.value = id
+        dishMenuViewModel.navigateFromMenu.value = true
+        findNavController().navigate(R.id.action_menuFragment_to_dishMenuFragment)
     }
 }

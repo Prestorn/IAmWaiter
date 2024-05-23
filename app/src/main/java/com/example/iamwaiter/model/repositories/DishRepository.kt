@@ -27,6 +27,14 @@ class DishRepository(private val dao: DishDao) {
         return dao.getDishListByOrderId(id)
     }
 
+    fun getDishListByCategoryID(id: Int): List<Dish> {
+        return dao.getDishListByCategoryID(id)
+    }
+
+    fun getDishListLiveDataByCategoryID(id: Int): LiveData<List<Dish>> {
+        return dao.getDishListLiveDataByCategoryID(id)
+    }
+
     fun addDish(dish: Dish) {
         dao.insert(dish)
     }

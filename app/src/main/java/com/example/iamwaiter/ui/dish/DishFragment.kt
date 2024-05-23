@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
 import com.example.iamwaiter.R
 import com.example.iamwaiter.databinding.FragmentDishBinding
+import com.example.iamwaiter.ui.dishMenu.DishMenuViewModel
 
 class DishFragment : Fragment() {
 
@@ -32,10 +33,11 @@ class DishFragment : Fragment() {
 
         val provider = ViewModelProvider(activity as ViewModelStoreOwner)
         viewModel = provider[DishViewModel::class]
-        observeViewModel()
 
         binding.backBackground.setOnClickListener{ goBack() }
         binding.descriptionTextView.movementMethod = ScrollingMovementMethod()
+
+        observeViewModel()
     }
 
     private fun observeViewModel() {
@@ -55,10 +57,29 @@ class DishFragment : Fragment() {
             binding.costTextView.text = dish.cost.toString()
             binding.weightTextView.text = dish.weight.toString()
         }
+
+        viewModel.navigateFromOrder.observe(viewLifecycleOwner) {
+            viewModel.navigateFromMenu = !it
+            setAddVidibility()
+        }
     }
 
     private fun goBack() {
-        findNavController().navigate(R.id.action_dishFragment_to_orderScreenFragment)
+        if (viewModel.navigateFromMenu){
+            findNavController().navigate(R.id.action_dishFragment_to_dishMenuFragment)
+        } else {
+            findNavController().navigate(R.id.action_dishFragment_to_orderScreenFragment)
+        }
+    }
+
+    private fun setAddVidibility() {
+        if (viewModel.navigateFromMenu) {
+            binding.plus.visibility = View.INVISIBLE
+            binding.plusBackground.visibility = View.INVISIBLE
+        } else {
+            binding.plus.visibility = View.VISIBLE
+            binding.plusBackground.visibility = View.VISIBLE
+        }
     }
 
 }

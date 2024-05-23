@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.iamwaiter.R
 import com.example.iamwaiter.databinding.FragmentOrderScreenBinding
 import com.example.iamwaiter.ui.dish.DishViewModel
+import com.example.iamwaiter.ui.dishMenu.DishMenuViewModel
 
 class OrderScreenFragment : Fragment() {
 
@@ -74,12 +75,13 @@ class OrderScreenFragment : Fragment() {
     }
 
     fun onDishSelected(id: Int) {
-        ViewModelProvider(activity as ViewModelStoreOwner)[DishViewModel::class].dishId.value = id
+        val dishViewModel = ViewModelProvider(activity as ViewModelStoreOwner)[DishViewModel::class]
+        dishViewModel.dishId.value = id
+        dishViewModel.navigateFromOrder.value = true
         findNavController().navigate(R.id.action_orderScreenFragment_to_dishFragment)
     }
 
     fun addDishInOrder() {
-        viewModel.addDishInOrderEnable.value = true
         findNavController().navigate(R.id.action_orderScreenFragment_to_menuFromOrderFragment)
     }
 

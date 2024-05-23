@@ -39,8 +39,6 @@ class OrderListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         observeViewModel()
-
-        ViewModelProvider(activity as ViewModelStoreOwner)[OrderScreenViewModel::class].addDishInOrderEnable.value = false
     }
     private fun observeViewModel(){
         val peopleCountList = ArrayList<Int>()

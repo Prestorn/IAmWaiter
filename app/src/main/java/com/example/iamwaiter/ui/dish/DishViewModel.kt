@@ -14,6 +14,9 @@ import kotlinx.coroutines.launch
 
 class DishViewModel(application: Application) : AndroidViewModel(application) {
 
+    val navigateFromOrder = MutableLiveData<Boolean>()
+    var navigateFromMenu = false
+
     var dishId = MutableLiveData<Int>()
     var dishIdValue = 0
 
