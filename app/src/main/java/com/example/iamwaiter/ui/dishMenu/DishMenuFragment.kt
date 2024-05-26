@@ -41,8 +41,11 @@ class DishMenuFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         binding.backBackground.setOnClickListener { goBack() }
+        binding.searchBadge.setOnClickListener {
+            search()
+        }
 
-        viewModel.updateDishInCategoryList()
+        viewModel.updateDishList()
 
         observeViewModel()
     }
@@ -51,7 +54,7 @@ class DishMenuFragment : Fragment() {
 
         viewModel.categoryId.observe(viewLifecycleOwner) {
             viewModel.categoryIdValue = it
-            viewModel.updateDishInCategoryList()
+            viewModel.updateDishList()
         }
 
         viewModel.dishListLiveData.observe(viewLifecycleOwner) {
@@ -61,6 +64,10 @@ class DishMenuFragment : Fragment() {
 
         viewModel.navigateFromMenu.observe(viewLifecycleOwner) {
             viewModel.navigateFromOrder = !it
+        }
+
+        viewModel.listDish.observe(viewLifecycleOwner) {
+            Log.i("list", "$it")
         }
     }
 
@@ -79,11 +86,16 @@ class DishMenuFragment : Fragment() {
         findNavController().navigate(R.id.action_dishMenuFragment_to_dishFragment)
     }
 
-    fun goBack() {
+    private fun goBack() {
         if (viewModel.navigateFromOrder){
             findNavController().navigate(R.id.action_dishMenuFragment_to_menuFromOrderFragment)
         } else {
             findNavController().navigate(R.id.action_dishMenuFragment_to_menuFragment)
         }
+    }
+
+    private fun search() {
+        viewModel.updateDishListUsingSearch(binding.search.text.toString())
+        binding.search.text.clear()
     }
 }

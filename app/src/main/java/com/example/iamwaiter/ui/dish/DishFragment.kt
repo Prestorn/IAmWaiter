@@ -15,6 +15,7 @@ import com.example.iamwaiter.R
 import com.example.iamwaiter.databinding.FragmentDishBinding
 import com.example.iamwaiter.ui.dishMenu.DishMenuViewModel
 import com.example.iamwaiter.ui.orderScreen.OrderScreenViewModel
+import java.lang.Exception
 
 class DishFragment : Fragment() {
 
@@ -38,6 +39,7 @@ class DishFragment : Fragment() {
 
         binding.backBackground.setOnClickListener{ goBack() }
         binding.descriptionTextView.movementMethod = ScrollingMovementMethod()
+        binding.plusBackground.setOnClickListener { addDishInOrder() }
 
         addDishEnable = provider[OrderScreenViewModel::class].addDishEnable.value
 
@@ -53,7 +55,6 @@ class DishFragment : Fragment() {
 
         viewModel.dishLiveData.observe(viewLifecycleOwner) {
             val dish = viewModel.dish
-            Log.i("dish", "$it \n ${dish} \n ${R.mipmap.dish1}")
             val imageId = requireActivity().resources.getIdentifier("dish${dish.id}", "mipmap", requireActivity().packageName)
             binding.dishImage.setImageResource(imageId)
             binding.dishNameTextView.text = dish.name
@@ -86,4 +87,14 @@ class DishFragment : Fragment() {
         }
     }
 
+    private fun addDishInOrder() {
+        try {
+            if (addDishEnable == true) {
+                ViewModelProvider(activity as ViewModelStoreOwner)[OrderScreenViewModel::class].addDishInOrder(viewModel.dishIdValue)
+                Toast.makeText(context, "Блюдо добавлено", Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            Toast.makeText(context, "Ошибка добавления", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

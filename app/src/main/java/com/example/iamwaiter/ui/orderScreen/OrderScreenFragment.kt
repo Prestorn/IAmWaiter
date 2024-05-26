@@ -1,13 +1,15 @@
 package com.example.iamwaiter.ui.orderScreen
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
@@ -16,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.iamwaiter.R
 import com.example.iamwaiter.databinding.FragmentOrderScreenBinding
 import com.example.iamwaiter.ui.dish.DishViewModel
-import com.example.iamwaiter.ui.dishMenu.DishMenuViewModel
 
 class OrderScreenFragment : Fragment() {
 
@@ -43,6 +44,8 @@ class OrderScreenFragment : Fragment() {
         recyclerView = binding.dishesList
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        binding.peopleCountEditText.addTextChangedListener { changePeopleCount() }
+        binding.tableNumberEditText.addTextChangedListener { changeTableNumber() }
         binding.plusBackground.setOnClickListener{ addDishInOrder() }
         binding.backBackground.setOnClickListener{ goBack() }
 
@@ -87,8 +90,50 @@ class OrderScreenFragment : Fragment() {
         findNavController().navigate(R.id.action_orderScreenFragment_to_menuFromOrderFragment)
     }
 
+    fun deleteDishFromOrder(id: Int) {
+        val myDialog = AlertDialog.Builder(context).setMessage("Удалить блюдо?")
+            .setNeutralButton("Отмена") { _, which -> deleteDishDialogListener(which, id) }
+            .setPositiveButton("Удалить одну порцию") { _, which -> deleteDishDialogListener(which, id) }
+            .setNegativeButton("Удалить все порции") { _, which -> deleteDishDialogListener(which, id) }
+        myDialog.create()
+        myDialog.show()
+    }
+
+    private fun deleteDishDialogListener(which: Int, id: Int) {
+        when (which){
+            DialogInterface.BUTTON_POSITIVE -> viewModel.deleteDishFromOrder(id, false)
+            DialogInterface.BUTTON_NEGATIVE -> viewModel.deleteDishFromOrder(id, true)
+            DialogInterface.BUTTON_NEUTRAL -> return
+        }
+        restart()
+    }
+
     private fun goBack() {
         viewModel.addDishEnable.value = false
+        viewModel.checkOrderForDelete()
         findNavController().navigate(R.id.action_orderScreenFragment_to_orderListFragment)
+    }
+
+    fun changeStatus(id: Int) {
+        if (viewModel.changeStatus(id)) { restart() }
+    }
+
+    private fun restart() {
+        findNavController().navigate(R.id.action_orderScreenFragment_to_orderListFragment)
+        findNavController().navigate(R.id.action_orderListFragment_to_orderScreenFragment)
+    }
+
+    private fun changePeopleCount() {
+        val text = binding.peopleCountEditText.text.toString()
+        if (text != "") {
+            viewModel.changePeopleCount(text.toInt())
+        }
+    }
+
+    private fun changeTableNumber() {
+        val text = binding.tableNumberEditText.text.toString()
+        if (text != "") {
+            viewModel.changeTableNumber(text.toInt())
+        }
     }
 }

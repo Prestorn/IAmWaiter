@@ -14,10 +14,10 @@ interface DishInCategoryDao {
     @Query("SELECT * FROM dishInCategory")
     fun getAll():List<DishInCategory>
 
-    @Query("SELECT * FROM dishInCategory WHERE categoryId = :id")
+    @Query("SELECT * FROM dishInCategory WHERE categoryId = :id ORDER BY dishId")
     fun getAllDishesInCategoryLiveData(id: Int): LiveData<DishInCategory>
 
-    @Query("SELECT * FROM dishInCategory WHERE categoryId = :id")
+    @Query("SELECT * FROM dishInCategory WHERE categoryId = :id ORDER BY dishId")
     fun getAllDishesInCategory(id: Int): DishInCategory
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

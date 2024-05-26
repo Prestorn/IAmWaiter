@@ -44,13 +44,13 @@ class Data {
             OrderStatus(3,"Отменён")
         )
         val orders = listOf<Order>(
-            Order(1, 1, 1, 1, 790, 3),
+            Order(1, 1, 1, 1, 1160, 3),
             Order(2, 1, 1, 5, 820, 1),
             Order(3, 1, 1, 10, 820, 2)
         )
 
         val dishesInOrder = listOf<DishInOrder>(
-            DishInOrder(0, 1, 1, 1, 1),
+            DishInOrder(0, 1, 1, 1, 2),
             DishInOrder(0, 31, 1, 2, 1),
             DishInOrder(0, 9, 2, 3, 1),
             DishInOrder(0, 13, 2, 3, 1),

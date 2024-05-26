@@ -14,10 +14,10 @@ interface DishInOrderDao {
     @Query("SELECT * FROM dishInOrder")
     fun getAll(): LiveData<List<DishInOrder>>
 
-    @Query("SELECT * FROM dishInOrder WHERE orderId = :id")
+    @Query("SELECT * FROM dishInOrder WHERE orderId = :id ORDER BY dishId")
     fun getAllByOrderId(id: Int): LiveData<List<DishInOrder>>
 
-    @Query("SELECT * FROM dishInOrder WHERE orderId = :id")
+    @Query("SELECT * FROM dishInOrder WHERE orderId = :id ORDER BY dishId")
     fun getAllValueByOrderId(id: Int): List<DishInOrder>
 
 

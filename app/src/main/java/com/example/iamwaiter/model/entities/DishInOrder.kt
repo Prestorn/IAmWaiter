@@ -9,6 +9,6 @@ data class DishInOrder(
     val id:Int,
     val dishId:Int,
     val orderId:Int,
-    val statusId:Int,
-    val count:Int
+    var statusId:Int,
+    var count:Int
 ) {}

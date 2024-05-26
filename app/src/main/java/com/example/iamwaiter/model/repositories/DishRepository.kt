@@ -35,6 +35,18 @@ class DishRepository(private val dao: DishDao) {
         return dao.getDishListLiveDataByCategoryID(id)
     }
 
+    fun getDishListNamedLike(regexp: String): List<Dish> {
+        val a = dao.getDishListNamedLike(regexp)
+        Log.i("dish Rep", "$regexp, $a")
+        return a
+    }
+
+    fun getDishListLiveDataNamedLike(regexp: String): LiveData<List<Dish>> {
+        val a = dao.getDishListLiveDataNamedLike(regexp)
+        Log.i("dish Rep", "$regexp, ${a}")
+        return a
+    }
+
     fun addDish(dish: Dish) {
         dao.insert(dish)
     }

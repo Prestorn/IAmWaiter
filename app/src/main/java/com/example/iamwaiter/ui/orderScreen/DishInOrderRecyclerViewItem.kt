@@ -18,7 +18,7 @@ class DishInOrderRecyclerViewItem(
 ): RecyclerView.Adapter<DishInOrderRecyclerViewItem.MyViewHolder>() {
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val countListTextView = itemView.findViewById<TextView>(R.id.dishInOrderListItemCostTextView)
+        val countListTextView = itemView.findViewById<TextView>(R.id.dishInOrderListItemCountTextView)
         val nameTextView = itemView.findViewById<TextView>(R.id.dishInOrderListItemNameTextView)
         val costTextView = itemView.findViewById<TextView>(R.id.dishInOrderListItemCostTextView)
         val statusImageView = itemView.findViewById<ImageView>(R.id.dishStatusImageView)
@@ -31,7 +31,7 @@ class DishInOrderRecyclerViewItem(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.countListTextView.text = countList[position].toString()
+        holder.countListTextView.text = "${countList[position]}x"
         holder.nameTextView.text = namesList[position]
         holder.costTextView.text = costList[position].toString()
         when (statusesList[position]){
@@ -43,6 +43,13 @@ class DishInOrderRecyclerViewItem(
         }
         holder.listItemBackground.setOnClickListener{
             parentFragment.onDishSelected(idList[position])
+        }
+        holder.listItemBackground.setOnLongClickListener {
+            parentFragment.deleteDishFromOrder(idList[position])
+            return@setOnLongClickListener true
+        }
+        holder.statusImageView.setOnClickListener{
+            parentFragment.changeStatus(idList[position])
         }
     }
 

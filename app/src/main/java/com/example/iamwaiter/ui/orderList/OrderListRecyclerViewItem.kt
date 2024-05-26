@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.iamwaiter.R
 
 class OrderListRecyclerViewItem(
-    private val personCount: List<Int>,
-    private val tableNumber: List<Int>,
-    private val cost:List<Int>,
-    private val id:List<Int>,
+    private val personCountList: List<Int>,
+    private val tableNumberList: List<Int>,
+    private val costList:List<Int>,
+    private val idList:List<Int>,
     private val parentFragment: OrderListFragment
 ) : RecyclerView.Adapter<OrderListRecyclerViewItem.MyViewHolder>() {
 
@@ -28,15 +28,19 @@ class OrderListRecyclerViewItem(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.personCountTextView.text = personCount[position].toString()
-        holder.tableNumberTextView.text = tableNumber[position].toString()
-        holder.costTextView.text = cost[position].toString()
+        holder.personCountTextView.text = personCountList[position].toString()
+        holder.tableNumberTextView.text = tableNumberList[position].toString()
+        holder.costTextView.text = costList[position].toString()
         holder.listItemBackground.setOnClickListener{
-            parentFragment.onOrderSelected(id[position])
+            parentFragment.onOrderSelected(idList[position])
+        }
+        holder.listItemBackground.setOnLongClickListener {
+            parentFragment.deleteOrder(idList[position])
+            return@setOnLongClickListener true
         }
     }
 
     override fun getItemCount(): Int {
-        return personCount.size
+        return personCountList.size
     }
 }

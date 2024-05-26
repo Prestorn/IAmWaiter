@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.example.iamwaiter.model.DataBase
 import com.example.iamwaiter.model.entities.Dish
@@ -27,15 +28,25 @@ class DishMenuViewModel(application: Application): AndroidViewModel(application)
     var dishList = listOf<Dish>()
     var dishListLiveData: LiveData<Dish> = dishRepository.getDishById(1)
 
+    //var list: LiveData<List<Dish>> = MutableLiveData()
+    var listDish: LiveData<List<Dish>> = dishRepository.getDishListLiveDataNamedLike("%суп%")
+
     val namesList = mutableListOf<String>()
     val costList = mutableListOf<Int>()
     val weightList = mutableListOf<Int>()
     val idList = mutableListOf<Int>()
 
-    fun updateDishInCategoryList() {
+    fun updateDishList() {
         viewModelScope.launch(Dispatchers.IO) {
             dishList = dishRepository.getDishListByCategoryID(categoryIdValue)
             dishListLiveData = dishRepository.getDishById(1)
+        }
+    }
+
+    fun updateDishListUsingSearch(name: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            listDish = dishRepository.getDishListLiveDataNamedLike("%$name%")
+            dishList = dishRepository.getDishListNamedLike("%$name%")
         }
     }
 
