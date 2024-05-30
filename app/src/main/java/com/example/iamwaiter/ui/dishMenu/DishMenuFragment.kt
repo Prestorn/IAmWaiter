@@ -41,9 +41,6 @@ class DishMenuFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         binding.backBackground.setOnClickListener { goBack() }
-        binding.searchBadge.setOnClickListener {
-            search()
-        }
 
         viewModel.updateDishList()
 
@@ -87,15 +84,11 @@ class DishMenuFragment : Fragment() {
     }
 
     private fun goBack() {
+        viewModel.searchUsed.value = false
         if (viewModel.navigateFromOrder){
             findNavController().navigate(R.id.action_dishMenuFragment_to_menuFromOrderFragment)
         } else {
             findNavController().navigate(R.id.action_dishMenuFragment_to_menuFragment)
         }
-    }
-
-    private fun search() {
-        viewModel.updateDishListUsingSearch(binding.search.text.toString())
-        binding.search.text.clear()
     }
 }

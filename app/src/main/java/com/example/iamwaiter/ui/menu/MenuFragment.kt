@@ -41,6 +41,8 @@ class MenuFragment : Fragment() {
         recyclerView = binding.categoryList
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        binding.searchBadge.setOnClickListener { search() }
+
         observeViewModel()
     }
 
@@ -55,6 +57,15 @@ class MenuFragment : Fragment() {
         val dishMenuViewModel = ViewModelProvider(activity as ViewModelStoreOwner)[DishMenuViewModel::class]
         dishMenuViewModel.categoryId.value = id
         dishMenuViewModel.navigateFromMenu.value = true
+        dishMenuViewModel.searchUsed.value = false
+        findNavController().navigate(R.id.action_menuFragment_to_dishMenuFragment)
+    }
+
+    private fun search() {
+        val dishMenuViewModel = ViewModelProvider(activity as ViewModelStoreOwner)[DishMenuViewModel::class]
+        dishMenuViewModel.navigateFromMenu.value = true
+        dishMenuViewModel.searchUsed.value = true
+        dishMenuViewModel.regexpForSearch.value = binding.search.text.toString()
         findNavController().navigate(R.id.action_menuFragment_to_dishMenuFragment)
     }
 }

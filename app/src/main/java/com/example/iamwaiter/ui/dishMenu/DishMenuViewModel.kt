@@ -18,6 +18,8 @@ class DishMenuViewModel(application: Application): AndroidViewModel(application)
 
     val categoryId = MutableLiveData<Int>()
     var categoryIdValue = 0
+    val searchUsed = MutableLiveData<Boolean>(false)
+    val regexpForSearch = MutableLiveData<String>()
 
     val navigateFromMenu = MutableLiveData<Boolean>()
     var navigateFromOrder = false
@@ -38,7 +40,11 @@ class DishMenuViewModel(application: Application): AndroidViewModel(application)
 
     fun updateDishList() {
         viewModelScope.launch(Dispatchers.IO) {
-            dishList = dishRepository.getDishListByCategoryID(categoryIdValue)
+            if (searchUsed.value == true) {
+                dishList = dishRepository.getDishListNamedLike("%${regexpForSearch.value}%")
+            } else {
+                dishList = dishRepository.getDishListByCategoryID(categoryIdValue)
+            }
             dishListLiveData = dishRepository.getDishById(1)
         }
     }
