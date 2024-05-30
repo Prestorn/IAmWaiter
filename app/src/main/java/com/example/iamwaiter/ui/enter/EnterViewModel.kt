@@ -53,17 +53,18 @@ class EnterViewModel(application: Application) : AndroidViewModel(application) {
     private val tableStatusDao = DataBase.getDatabase(application).tableStatusDao()
     private val tableStatusRepository = TableStatusRepository(tableStatusDao)
 
-    private var usersList = List<User?>(1){null}
+    private var usersList = listOf<User>()
 
     init {
         //clearDataBase()
         checkDataBaseFilling()
     }
 
+
     fun checkUserLogin(login: String, password: String): Boolean {
         updateUsersList()
         usersList.forEach { user ->
-            if (user?.login == login && user.password == password) {
+            if (user.login == login && user.password == password) {
                 this.user = user
                 return true
             }
@@ -71,18 +72,20 @@ class EnterViewModel(application: Application) : AndroidViewModel(application) {
         return false
     }
 
-    private fun updateUsersList(){
+
+
+    fun updateUsersList() {
         viewModelScope.launch(Dispatchers.IO) {
+            //usersList = userRepository.getAllUsers()
             usersList = userRepository.getAllUsers()
         }
     }
 
-    private fun checkDataBaseFilling(){
+    private fun checkDataBaseFilling() {
         viewModelScope.launch(Dispatchers.IO) {
-            usersList = userRepository.getAllUsers()
-            if (usersList.isEmpty()){
+            val userList = userRepository.getAllUsers()
+            if (userList.isEmpty()){
                 fillDataBase()
-                usersList = userRepository.getAllUsers()
             }
         }
     }
@@ -100,7 +103,7 @@ class EnterViewModel(application: Application) : AndroidViewModel(application) {
         Data.dishesInOrder.forEach{dishInOrderRepository.addDishInOrder(it)}
     }
 
-    private fun clearDataBase(){
+    private fun clearDataBase() {
         viewModelScope.launch (Dispatchers.IO) {
             dishInCategoryRepository.deleteAllDishesInCategories()
             categoryRepository.deleteAllCategories()

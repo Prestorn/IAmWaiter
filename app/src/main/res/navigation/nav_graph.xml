@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_orderListFragment_to_orderScreenFragment"
             app:destination="@id/orderScreenFragment" />
+        <action
+            android:id="@+id/action_orderListFragment_to_enterFragment"
+            app:destination="@id/enterFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"

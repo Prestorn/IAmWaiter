@@ -17,6 +17,10 @@ class OrderRepository(private val dao: OrderDao) {
         return dao.getOrdersByUserId(id)
     }
 
+    fun getOrdersValueByUserId(id: Int): List<Order> {
+        return dao.getOrdersValueByUserId(id)
+    }
+
     fun addOrder(order: Order){
         dao.insert(order)
     }

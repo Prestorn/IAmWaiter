@@ -31,21 +31,25 @@ class EnterFragment : Fragment() {
 
         val provider = ViewModelProvider(activity as ViewModelStoreOwner)
         viewModel = provider[EnterViewModel::class]
+        viewModel.updateUsersList()
 
         // TODO delete
         binding.login.setText("test")
         binding.password.setText("test")
         // TODO delete
 
-        binding.button.setOnClickListener(){
-            if (viewModel.checkUserLogin(binding.login.text.toString(), binding.password.text.toString())) {
-                ViewModelProvider(activity as ViewModelStoreOwner)[OrderListViewModel::class].user.value = viewModel.user
-                findNavController().navigate(R.id.action_enterFragment_to_orderListFragment)
-            }
-            else{
-                Toast.makeText(context,"Неправильный логин или пароль",Toast.LENGTH_LONG).show()
-                binding.password.setText("")
-            }
+        binding.button.setOnClickListener() { onEnterClicked() }
+
+    }
+
+    private fun onEnterClicked() {
+        if (viewModel.checkUserLogin(binding.login.text.toString(), binding.password.text.toString())) {
+            ViewModelProvider(activity as ViewModelStoreOwner)[OrderListViewModel::class].user.value = viewModel.user
+            findNavController().navigate(R.id.action_enterFragment_to_orderListFragment)
+        }
+        else{
+            Toast.makeText(context,"Неправильный логин или пароль",Toast.LENGTH_LONG).show()
+            binding.password.setText("")
         }
     }
 }

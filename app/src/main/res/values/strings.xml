@@ -29,6 +29,7 @@
     <string name="base_dish_count">1x</string>
     <string name="weight">Гр.</string>
     <string name="base_category_name">Сезонные блюда</string>
+    <string name="base_int_hint">0</string>
 
 
 </resources>

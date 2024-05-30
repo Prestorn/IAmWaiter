@@ -21,6 +21,9 @@ interface OrderDao {
     @Query("SELECT * FROM `order` WHERE userId = :id")
     fun getOrdersByUserId(id: Int): LiveData<List<Order>>
 
+    @Query("SELECT * FROM `order` WHERE userId = :id")
+    fun getOrdersValueByUserId(id: Int): List<Order>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(order: Order)
 

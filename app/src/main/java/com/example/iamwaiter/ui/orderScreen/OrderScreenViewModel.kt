@@ -2,7 +2,6 @@ package com.example.iamwaiter.ui.orderScreen
 
 import android.app.Application
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -114,6 +113,7 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
                 dishInOrderRecord!!.statusId = 1
                 viewModelScope.launch(Dispatchers.IO) {
                     dishInOrderRepository.updateDishInOrder(dishInOrderRecord!!)
+                    updateDishInOrderList()
                 }
 
             } else {
@@ -121,12 +121,12 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
                 dishInOrderRecord = DishInOrder(0, id, order!!.id, 1, 1)
                 viewModelScope.launch(Dispatchers.IO) {
                     dishInOrderRepository.addDishInOrder(dishInOrderRecord!!)
+                    updateDishInOrderList()
                 }
                 idList.add(id)
             }
-            updateDishInOrderList()
         } catch (e: NullPointerException) {
-            Log.e("addDishInOrder", "id: $id\ndidhInOrderList: $dishInOrderList\ndishInOrderRecord: $dishInOrderRecord")
+            Log.e("addDishInOrder", "id: $id\ndishInOrderList: $dishInOrderList\ndishInOrderRecord: $dishInOrderRecord")
             throw e
         }
     }

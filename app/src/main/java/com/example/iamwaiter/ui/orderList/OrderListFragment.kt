@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
@@ -36,41 +35,47 @@ class OrderListFragment : Fragment() {
 
         val provider = ViewModelProvider(activity as ViewModelStoreOwner)
         viewModel = provider[OrderListViewModel::class]
+        observeViewModel()
         viewModel.updateOrderList()
+
 
         recyclerView = binding.orderList
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         binding.plusBackground.setOnClickListener { createOrder() }
 
-        observeViewModel()
-    }
-    private fun observeViewModel(){
-        val peopleCountList = ArrayList<Int>()
-        val tableNumberList = ArrayList<Int>()
-        val costList = ArrayList<Int>()
-        val idList = ArrayList<Int>()
-
-        viewModel.orderList.observe(viewLifecycleOwner, Observer {
-            viewModel.orderListValue = it
-            peopleCountList.clear()
-            tableNumberList.clear()
-            costList.clear()
-            idList.clear()
-            it.forEach { order ->
-                peopleCountList.add(order.peopleCount)
-                tableNumberList.add(order.tableId)
-                costList.add(order.cost)
-                idList.add(order.id)
+        /*
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(R.id.action_orderListFragment_to_enterFragment)
             }
-            recyclerView.adapter = OrderListRecyclerViewItem(peopleCountList, tableNumberList, costList, idList, this)
-            viewModel.newOrder = it[it.size - 1]
-            checkNewOrder()
-        })
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+        */
     }
 
-    private fun fillRecyclerView() {
+    private fun observeViewModel(){
 
+        viewModel.user.observe(viewLifecycleOwner) {
+            viewModel.updateOrderList()
+        }
+
+        viewModel.orderList.observe(viewLifecycleOwner) {
+            Log.d("orderList.observe", "$it,\n ${viewModel.orderListValue}")
+            viewModel.updateLists()
+            fillRecyclerView()
+            if (it.isNotEmpty()) {
+                viewModel.newOrder = it[it.size - 1]
+                checkNewOrder()
+            }
+        }
+    }
+    private fun fillRecyclerView() {
+        val peopleCountList = viewModel.peopleCountList
+        val tableNumberList = viewModel.tableNumberList
+        val costList = viewModel.costList
+        val idList = viewModel.idList
+        recyclerView.adapter = OrderListRecyclerViewItem(peopleCountList, tableNumberList, costList, idList, this)
     }
 
     fun onOrderSelected(id:Int){

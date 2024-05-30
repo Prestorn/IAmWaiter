@@ -3,11 +3,9 @@ package com.example.iamwaiter.ui.orderScreen
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -72,8 +70,8 @@ class OrderScreenFragment : Fragment() {
         val costList: ArrayList<Int> = viewModel.costList
         val statusesList: ArrayList<Int> = viewModel.statusesList
         val idList: ArrayList<Int> = viewModel.idList
-        binding.peopleCountEditText.setText(viewModel.peopleCount.toString())
-        binding.tableNumberEditText.setText(viewModel.tableNumber.toString())
+        binding.peopleCountEditText.setText( if (viewModel.peopleCount != 0) viewModel.peopleCount.toString() else "")
+        binding.tableNumberEditText.setText( if (viewModel.tableNumber != 0) viewModel.tableNumber.toString() else "")
         binding.costTextView.text = viewModel.orderCost.toString()
         recyclerView.adapter = DishInOrderRecyclerViewItem(countList, namesList, costList, statusesList, idList, this)
 

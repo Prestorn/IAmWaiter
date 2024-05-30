@@ -1,6 +1,7 @@
 package com.example.iamwaiter.ui.orderList
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,8 +24,15 @@ class OrderListViewModel(application: Application) : AndroidViewModel(applicatio
     var orderList: LiveData<List<Order>> = orderRepository.getOrdersByUserId(1)
     var orderListValue: List<Order> = listOf()
 
+    var peopleCountList = ArrayList<Int>()
+    var tableNumberList = ArrayList<Int>()
+    var costList = ArrayList<Int>()
+    var idList = ArrayList<Int>()
+
     fun updateOrderList() {
         viewModelScope.launch(Dispatchers.IO) {
+            Log.d("user.value!!.id", "${user.value!!.id}")
+            orderListValue = orderRepository.getOrdersValueByUserId(user.value!!.id)
             orderList = orderRepository.getOrdersByUserId(user.value!!.id)
         }
     }
@@ -47,5 +55,22 @@ class OrderListViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch(Dispatchers.IO) {
             orderRepository.deleteOrder(selectedOrder!!)
         }
+    }
+
+    fun updateLists() {
+        clearLists()
+        orderListValue.forEach { order ->
+            peopleCountList.add(order.peopleCount)
+            tableNumberList.add(order.tableId)
+            costList.add(order.cost)
+            idList.add(order.id)
+        }
+    }
+
+    private fun clearLists() {
+        peopleCountList.clear()
+        tableNumberList.clear()
+        costList.clear()
+        idList.clear()
     }
 }
