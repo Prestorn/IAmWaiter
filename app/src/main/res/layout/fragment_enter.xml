@@ -43,9 +43,9 @@
             android:inputType="text"
             android:imeOptions="actionNext"
             android:maxLines="1"
+            android:backgroundTint="@color/themeColorPrimary"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/waiter"
-            android:backgroundTint="@color/themeColorPrimary"/>
+            app:layout_constraintTop_toBottomOf="@+id/waiter" />
 
         <EditText
             android:id="@+id/password"

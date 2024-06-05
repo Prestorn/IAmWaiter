@@ -98,18 +98,17 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    fun addDishInOrder(id: Int) {
+    fun addDishInOrder(id: Int, count: Int) {
         var dishInOrderRecord: DishInOrder? = null
         try {
             if (id in idList) {
-                Log.i("ADD DISH", "count++")
                 dishInOrderList.forEach {
                     if (it.dishId == id) {
                         dishInOrderRecord = it
                         return@forEach
                     }
                 }
-                dishInOrderRecord!!.count++
+                dishInOrderRecord!!.count += count
                 dishInOrderRecord!!.statusId = 1
                 viewModelScope.launch(Dispatchers.IO) {
                     dishInOrderRepository.updateDishInOrder(dishInOrderRecord!!)
@@ -117,16 +116,12 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
             } else {
-                Log.i("ADD DISH", "new record")
-                dishInOrderRecord = DishInOrder(0, id, order!!.id, 1, 1)
+                dishInOrderRecord = DishInOrder(0, id, order!!.id, 1, count)
                 viewModelScope.launch(Dispatchers.IO) {
                     dishInOrderRepository.addDishInOrder(dishInOrderRecord!!)
-                    updateDishInOrderList()
                 }
-                idList.add(id)
             }
         } catch (e: NullPointerException) {
-            Log.e("addDishInOrder", "id: $id\ndishInOrderList: $dishInOrderList\ndishInOrderRecord: $dishInOrderRecord")
             throw e
         }
     }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -132,14 +133,29 @@ class OrderScreenFragment : Fragment() {
     private fun changePeopleCount() {
         val text = binding.peopleCountEditText.text.toString()
         if (text != "") {
-            viewModel.changePeopleCount(text.toInt())
+            val maxPeopleNumber = 10
+            val peopleCount: Int = text.toInt()
+            if (peopleCount <= maxPeopleNumber) {
+                viewModel.changePeopleCount(peopleCount)
+            } else {
+                Toast.makeText(context, "Введено слишком большое количество людей. Максимум $maxPeopleNumber", Toast.LENGTH_SHORT).show()
+                binding.peopleCountEditText.setText("")
+            }
         }
     }
 
     private fun changeTableNumber() {
         val text = binding.tableNumberEditText.text.toString()
         if (text != "") {
-            viewModel.changeTableNumber(text.toInt())
+            val maxTableNumber = 11
+            val tableNumber: Int = text.toInt()
+            if (tableNumber <= maxTableNumber) {
+                viewModel.changeTableNumber(tableNumber)
+            } else {
+                Toast.makeText(context, "Неверный номер стола. Столов всего $maxTableNumber", Toast.LENGTH_SHORT).show()
+                binding.tableNumberEditText.setText("")
+            }
+
         }
     }
 }

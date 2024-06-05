@@ -22,14 +22,28 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
 
-    <string name="base_int">1000</string>
-    <string name="base_small_int">1</string>
     <string name="base_dish_name">Рисовая каша с арахисовой халвой на кокосовой основе</string>
     <string name="base_dish_description">Торт из миндальных коржей с прослойками из ванильного заварного крема, покрыт молочным шоколадом и карамелью. Сливки, сахар,  молоко, мука, миндаль,  шоколад молочный, ванильная паста</string>
     <string name="base_dish_count">1x</string>
     <string name="weight">Гр.</string>
     <string name="base_category_name">Сезонные блюда</string>
+    <string name="base_int">1000</string>
+    <string name="base_small_int">1</string>
     <string name="base_int_hint">0</string>
+
+    <string-array name="dish_count_to_add_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+
+
 
 
 </resources>
