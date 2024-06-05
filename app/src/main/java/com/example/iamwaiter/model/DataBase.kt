@@ -35,7 +35,7 @@ import com.example.iamwaiter.model.entities.User
                      Table::class,
                      TableStatus::class,
                      User::class],
-                        version = 12, exportSchema = false)
+                        version = 13, exportSchema = false)
 abstract class DataBase : RoomDatabase() {
 
     abstract fun categoryDao(): CategoryDao

@@ -33,12 +33,19 @@
         <action
             android:id="@+id/action_menuFragment_to_dishMenuFragment"
             app:destination="@id/dishMenuFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.iamwaiter.ui.map.MapFragment"
         android:label="Карта"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderScreenFragment"
         android:name="com.example.iamwaiter.ui.orderScreen.OrderScreenFragment"

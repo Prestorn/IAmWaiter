@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
@@ -44,14 +45,14 @@ class OrderListFragment : Fragment() {
 
         binding.plusBackground.setOnClickListener { createOrder() }
 
-        /*
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().navigate(R.id.action_orderListFragment_to_enterFragment)
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
-        */
+
     }
 
     private fun observeViewModel(){
@@ -62,7 +63,6 @@ class OrderListFragment : Fragment() {
 
         viewModel.orderList.observe(viewLifecycleOwner) {
             Log.d("orderList.observe", "$it,\n ${viewModel.orderListValue}")
-            viewModel.updateLists()
             fillRecyclerView()
             if (it.isNotEmpty()) {
                 viewModel.newOrder = it[it.size - 1]
@@ -71,10 +71,12 @@ class OrderListFragment : Fragment() {
         }
     }
     private fun fillRecyclerView() {
+        viewModel.updateLists()
         val peopleCountList = viewModel.peopleCountList
         val tableNumberList = viewModel.tableNumberList
         val costList = viewModel.costList
         val idList = viewModel.idList
+        Log.d("Lists", "$peopleCountList\n$tableNumberList")
         recyclerView.adapter = OrderListRecyclerViewItem(peopleCountList, tableNumberList, costList, idList, this)
     }
 
@@ -88,7 +90,8 @@ class OrderListFragment : Fragment() {
         val myDialog = AlertDialog.Builder(context)
             .setMessage("Удалить заказ?")
             .setNegativeButton("Нет") { _, _ -> }
-            .setPositiveButton("Да") { _, _ -> viewModel.deleteOrder(id) }
+            .setPositiveButton("Да") { _, _ -> viewModel.deleteOrder(id)
+                                                    restart()}
         myDialog.create()
         myDialog.show()
     }
@@ -112,5 +115,10 @@ class OrderListFragment : Fragment() {
         } catch (e: NullPointerException) {
             Log.e("checkNewOrder", "$e")
         }
+    }
+
+    private fun restart() {
+        findNavController().navigate(R.id.action_orderListFragment_to_enterFragment)
+        findNavController().navigate(R.id.action_enterFragment_to_orderListFragment)
     }
 }

@@ -31,7 +31,6 @@ class OrderListViewModel(application: Application) : AndroidViewModel(applicatio
 
     fun updateOrderList() {
         viewModelScope.launch(Dispatchers.IO) {
-            Log.d("user.value!!.id", "${user.value!!.id}")
             orderListValue = orderRepository.getOrdersValueByUserId(user.value!!.id)
             orderList = orderRepository.getOrdersByUserId(user.value!!.id)
         }
@@ -55,6 +54,7 @@ class OrderListViewModel(application: Application) : AndroidViewModel(applicatio
         viewModelScope.launch(Dispatchers.IO) {
             orderRepository.deleteOrder(selectedOrder!!)
         }
+        updateOrderList()
     }
 
     fun updateLists() {

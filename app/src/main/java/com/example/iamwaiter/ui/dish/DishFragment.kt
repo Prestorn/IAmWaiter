@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.fragment.findNavController
@@ -44,6 +45,13 @@ class DishFragment : Fragment() {
         addDishEnable = provider[OrderScreenViewModel::class].addDishEnable.value
 
         observeViewModel()
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                goBack()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
     private fun observeViewModel() {
@@ -70,7 +78,7 @@ class DishFragment : Fragment() {
     }
 
     private fun goBack() {
-        if (viewModel.navigateFromMenu){
+        if (viewModel.navigateFromMenu) {
             findNavController().navigate(R.id.action_dishFragment_to_dishMenuFragment)
         } else {
             findNavController().navigate(R.id.action_dishFragment_to_orderScreenFragment)
