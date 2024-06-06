@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/menuFromOrderFragment"
-        android:name="com.example.iamwaiter.ui.menu.MenuFromOrderFragment"
+        android:name="com.example.iamwaiter.ui.menuFromOrder.MenuFromOrderFragment"
         android:label="Меню">
         <action
             android:id="@+id/action_menuFromOrderFragment_to_orderScreenFragment"

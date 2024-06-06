@@ -1,4 +1,4 @@
-package com.example.iamwaiter.ui.menu
+package com.example.iamwaiter.ui.menuFromOrder
 
 import android.view.LayoutInflater
 import android.view.View

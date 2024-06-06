@@ -1,12 +1,10 @@
 package com.example.iamwaiter.ui.menu
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -14,10 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iamwaiter.R
-import com.example.iamwaiter.databinding.FragmentEnterBinding
 import com.example.iamwaiter.databinding.FragmentMenuBinding
 import com.example.iamwaiter.ui.dishMenu.DishMenuViewModel
-import com.example.iamwaiter.ui.orderScreen.OrderScreenViewModel
 
 class MenuFragment : Fragment() {
 

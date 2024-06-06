@@ -1,7 +1,6 @@
 package com.example.iamwaiter.ui.orderScreen
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -57,7 +56,6 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
     private fun updateDishInOrderList() {
         viewModelScope.launch(Dispatchers.IO) {
             dishInOrderList = dishInOrderRepository.getAllDishesValueInOrder(order!!.id)
-            Log.i("1", "updateDishInOrderList")
             updateDishList()
         }
     }
@@ -171,8 +169,7 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
             viewModelScope.launch(Dispatchers.IO) {
                 dishInOrderRepository.updateDishInOrder(dishInOrderRecord!!)
             }
-        } catch (e: NullPointerException) {
-            Log.e("fun changeStatus", "NullPointerException: dishInOrderRecord = null")
+        } catch (_: NullPointerException) {
         }
         return false
     }

@@ -1,5 +1,6 @@
 package com.example.iamwaiter
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.ActionBar
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_NOSENSOR
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
