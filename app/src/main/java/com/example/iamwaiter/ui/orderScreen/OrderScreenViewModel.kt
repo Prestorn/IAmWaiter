@@ -31,9 +31,9 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
     private val orderDao = DataBase.getDatabase(application).orderDao()
     private val orderRepository = OrderRepository(orderDao)
 
-    var dishInOrderList: List<DishInOrder> = listOf()
+    private var dishInOrderList: List<DishInOrder> = listOf()
     var dishListLiveData: LiveData<List<Dish>> = dishRepository.getDishListByOrderId(1)
-    var dishList: List<Dish> = listOf()
+    private var dishList: List<Dish> = listOf()
 
     val countList: ArrayList<Int> = arrayListOf()
     val namesList: ArrayList<String> = arrayListOf()
@@ -43,6 +43,8 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
     var orderCost: Int = 0
     var peopleCount: Int = 0
     var tableNumber: Int = 0
+    var maxPeopleCount: Int = 10
+    var maxTableNumber: Int = 11
 
     fun updateOrder(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -182,17 +184,40 @@ class OrderScreenViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    fun changePeopleCount(newCount: Int) {
-        order!!.peopleCount = newCount
-        viewModelScope.launch(Dispatchers.IO) {
-            orderRepository.updateOrder(order!!)
+    fun changePeopleCount(text: String): Boolean {
+        var newCount: Int
+        if (text != "") {
+            newCount = text.toInt()
+        } else {
+            newCount = 0
         }
+        if (newCount <= maxPeopleCount) {
+            order!!.peopleCount = newCount
+            viewModelScope.launch(Dispatchers.IO) {
+                orderRepository.updateOrder(order!!)
+            }
+            return true
+        }
+
+        return false
     }
 
-    fun changeTableNumber(newNumber: Int) {
-        order!!.tableId = newNumber
-        viewModelScope.launch(Dispatchers.IO) {
-            orderRepository.updateOrder(order!!)
+    fun changeTableNumber(text: String): Boolean {
+        var newNumber: Int
+        if (text != "") {
+            newNumber = text.toInt()
+        } else {
+            newNumber = 0
         }
+
+        if (newNumber <= maxTableNumber) {
+            order!!.tableId = newNumber
+            viewModelScope.launch(Dispatchers.IO) {
+                orderRepository.updateOrder(order!!)
+            }
+            return true
+        }
+
+        return false
     }
 }

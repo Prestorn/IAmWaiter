@@ -21,9 +21,9 @@ import com.example.iamwaiter.ui.dish.DishViewModel
 
 class OrderScreenFragment : Fragment() {
 
-    lateinit var binding: FragmentOrderScreenBinding
-    lateinit var viewModel:OrderScreenViewModel
-    lateinit var recyclerView: RecyclerView
+    private lateinit var binding: FragmentOrderScreenBinding
+    private lateinit var viewModel:OrderScreenViewModel
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -132,30 +132,18 @@ class OrderScreenFragment : Fragment() {
 
     private fun changePeopleCount() {
         val text = binding.peopleCountEditText.text.toString()
-        if (text != "") {
-            val maxPeopleNumber = 10
-            val peopleCount: Int = text.toInt()
-            if (peopleCount <= maxPeopleNumber) {
-                viewModel.changePeopleCount(peopleCount)
-            } else {
-                Toast.makeText(context, "Введено слишком большое количество людей. Максимум $maxPeopleNumber", Toast.LENGTH_SHORT).show()
-                binding.peopleCountEditText.setText("")
-            }
+        if (!viewModel.changePeopleCount(text)) {
+            Toast.makeText(context, "Введено слишком большое количество людей. Максимум ${viewModel.maxPeopleCount}", Toast.LENGTH_SHORT).show()
+            binding.peopleCountEditText.setText("")
         }
     }
 
     private fun changeTableNumber() {
         val text = binding.tableNumberEditText.text.toString()
-        if (text != "") {
-            val maxTableNumber = 11
-            val tableNumber: Int = text.toInt()
-            if (tableNumber <= maxTableNumber) {
-                viewModel.changeTableNumber(tableNumber)
-            } else {
-                Toast.makeText(context, "Неверный номер стола. Столов всего $maxTableNumber", Toast.LENGTH_SHORT).show()
-                binding.tableNumberEditText.setText("")
-            }
 
+        if (!viewModel.changeTableNumber(text)) {
+            Toast.makeText(context, "Неверный номер стола. Столов всего ${viewModel.maxTableNumber}", Toast.LENGTH_SHORT).show()
+            binding.tableNumberEditText.setText("")
         }
     }
 }
